@@ -7,11 +7,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{364C40A9-487
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{F5A4F3E6-9E3A-4F21-B4DE-2D3B38BEA0F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DipendeForum.Context", "DipendeForum.Context\DipendeForum.Context.csproj", "{11FCFA35-1E57-4D45-8B46-CDE97E32B7ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DipendeForum.Context", "DipendeForum.Context\DipendeForum.Context.csproj", "{11FCFA35-1E57-4D45-8B46-CDE97E32B7ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DipendeForum.Repositories", "DipendeForum.Repositories\DipendeForum.Repositories.csproj", "{A3C20496-E82B-4828-8F1E-6F0F9FD3B4EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DipendeForum.Repositories", "DipendeForum.Repositories\DipendeForum.Repositories.csproj", "{A3C20496-E82B-4828-8F1E-6F0F9FD3B4EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DipendeForum.Mvc", "DipendeForum.Mvc\DipendeForum.Mvc.csproj", "{660C7D29-767C-43A4-8B77-25F3C1EB00FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DipendeForum.Mvc", "DipendeForum.Mvc\DipendeForum.Mvc.csproj", "{660C7D29-767C-43A4-8B77-25F3C1EB00FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{657AE55A-E4AE-48C6-86CD-DFB61A0D98A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DipendeForum.Interfaces", "DipendeForum.Interfaces\DipendeForum.Interfaces.csproj", "{B63AC576-4E9E-4C90-8350-4CA83873068B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DipendeForum.Domain", "DipendeForum.Domain\DipendeForum.Domain.csproj", "{8A8D4480-FC3B-43CC-AEDF-39D766D1BC18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DipendeForum.Services", "DipendeForum.Services\DipendeForum.Services.csproj", "{8AC5E380-2677-4168-9FDE-F1D0992FC0BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DipendeForum.Test", "DipendeForum.Test\DipendeForum.Test.csproj", "{7C0A5BE6-CF8D-485D-BBA3-3E5C269B9F3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DipendeForum.Mapper", "DipendeForum.Mapper\DipendeForum.Mapper.csproj", "{AF7B83BA-500C-474B-B81F-F3291EF55FD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DipendeForum.Migrations", "DipendeForum.Migrations\DipendeForum.Migrations.csproj", "{89B7BA52-781F-4543-BA0B-F9956BA00176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +45,30 @@ Global
 		{660C7D29-767C-43A4-8B77-25F3C1EB00FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{660C7D29-767C-43A4-8B77-25F3C1EB00FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{660C7D29-767C-43A4-8B77-25F3C1EB00FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B63AC576-4E9E-4C90-8350-4CA83873068B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B63AC576-4E9E-4C90-8350-4CA83873068B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B63AC576-4E9E-4C90-8350-4CA83873068B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B63AC576-4E9E-4C90-8350-4CA83873068B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A8D4480-FC3B-43CC-AEDF-39D766D1BC18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A8D4480-FC3B-43CC-AEDF-39D766D1BC18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A8D4480-FC3B-43CC-AEDF-39D766D1BC18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A8D4480-FC3B-43CC-AEDF-39D766D1BC18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC5E380-2677-4168-9FDE-F1D0992FC0BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC5E380-2677-4168-9FDE-F1D0992FC0BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC5E380-2677-4168-9FDE-F1D0992FC0BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC5E380-2677-4168-9FDE-F1D0992FC0BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C0A5BE6-CF8D-485D-BBA3-3E5C269B9F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C0A5BE6-CF8D-485D-BBA3-3E5C269B9F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C0A5BE6-CF8D-485D-BBA3-3E5C269B9F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C0A5BE6-CF8D-485D-BBA3-3E5C269B9F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF7B83BA-500C-474B-B81F-F3291EF55FD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF7B83BA-500C-474B-B81F-F3291EF55FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF7B83BA-500C-474B-B81F-F3291EF55FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF7B83BA-500C-474B-B81F-F3291EF55FD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89B7BA52-781F-4543-BA0B-F9956BA00176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89B7BA52-781F-4543-BA0B-F9956BA00176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89B7BA52-781F-4543-BA0B-F9956BA00176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89B7BA52-781F-4543-BA0B-F9956BA00176}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +77,11 @@ Global
 		{11FCFA35-1E57-4D45-8B46-CDE97E32B7ED} = {364C40A9-4872-4FD7-9853-61ED8CEDBDB5}
 		{A3C20496-E82B-4828-8F1E-6F0F9FD3B4EE} = {364C40A9-4872-4FD7-9853-61ED8CEDBDB5}
 		{660C7D29-767C-43A4-8B77-25F3C1EB00FF} = {F5A4F3E6-9E3A-4F21-B4DE-2D3B38BEA0F0}
+		{B63AC576-4E9E-4C90-8350-4CA83873068B} = {657AE55A-E4AE-48C6-86CD-DFB61A0D98A7}
+		{8A8D4480-FC3B-43CC-AEDF-39D766D1BC18} = {657AE55A-E4AE-48C6-86CD-DFB61A0D98A7}
+		{8AC5E380-2677-4168-9FDE-F1D0992FC0BB} = {657AE55A-E4AE-48C6-86CD-DFB61A0D98A7}
+		{AF7B83BA-500C-474B-B81F-F3291EF55FD9} = {364C40A9-4872-4FD7-9853-61ED8CEDBDB5}
+		{89B7BA52-781F-4543-BA0B-F9956BA00176} = {364C40A9-4872-4FD7-9853-61ED8CEDBDB5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72EF93E6-BE71-4F2B-B046-1999F48A3150}

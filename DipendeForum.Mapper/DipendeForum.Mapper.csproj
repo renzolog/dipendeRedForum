@@ -5,9 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DipendeForum.Context\DipendeForum.Context.csproj" />
-    <ProjectReference Include="..\DipendeForum.Interfaces\DipendeForum.Interfaces.csproj" />
-    <ProjectReference Include="..\DipendeForum.Mapper\DipendeForum.Mapper.csproj" />
+    <ProjectReference Include="..\DipendeForum.Domain\DipendeForum.Domain.csproj" />
   </ItemGroup>
 
 </Project>
