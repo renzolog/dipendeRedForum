@@ -6,5 +6,9 @@ namespace DipendeForum.Domain
 {
     class PostDomain
     {
+        public Guid Id { get; set; }
+        public UserDomain User { get; set; }
+        public string Title { get; set; }
+        public ICollection<MessageDomain> Messages { get; set; }
     }
 }
