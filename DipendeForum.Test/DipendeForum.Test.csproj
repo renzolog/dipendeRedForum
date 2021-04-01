@@ -13,4 +13,15 @@
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DipendeForum.Context\DipendeForum.Context.csproj" />
+    <ProjectReference Include="..\DipendeForum.Domain\DipendeForum.Domain.csproj" />
+    <ProjectReference Include="..\DipendeForum.Interfaces\DipendeForum.Interfaces.csproj" />
+    <ProjectReference Include="..\DipendeForum.Mapper\DipendeForum.Mapper.csproj" />
+    <ProjectReference Include="..\DipendeForum.Migrations\DipendeForum.Migrations.csproj" />
+    <ProjectReference Include="..\DipendeForum.Mvc\DipendeForum.Mvc.csproj" />
+    <ProjectReference Include="..\DipendeForum.Repositories\DipendeForum.Repositories.csproj" />
+    <ProjectReference Include="..\DipendeForum.Services\DipendeForum.Services.csproj" />
+  </ItemGroup>
+
 </Project>

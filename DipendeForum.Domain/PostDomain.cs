@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DipendeForum.Domain
 {
-    class PostDomain
+    public class PostDomain
     {
         public Guid Id { get; set; }
         public UserDomain User { get; set; }

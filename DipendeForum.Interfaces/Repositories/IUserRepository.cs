@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DipendeForum.Domain;
 
-namespace DipendeForum.Interfaces.Services
+namespace DipendeForum.Interfaces.Repositories
 {
-    public interface IUserRepository
+    public interface IUserRepository : ICrudRepository<UserDomain, string>
     {
-        public void Add();
-        public User GetById();
-        public ICollection<User> GetAll();
-        public void Delete();
+
     }
 }
