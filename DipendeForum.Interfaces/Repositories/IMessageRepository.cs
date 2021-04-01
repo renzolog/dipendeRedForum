@@ -1,14 +1,15 @@
-﻿using System;
+﻿using DipendeForum.Domain;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DipendeForum.Interfaces.Services
 {
-    interface IMessageRepository
+    public interface IMessageRepository
     {
         public void Add();
-        public User GetById();
-        public ICollection<Message> GetAll();
+        public UserDomain GetById();
+        public ICollection<MessageDomain> GetAll();
         public void Update();
         public void Delete();
     }

@@ -9,7 +9,7 @@ namespace DipendeForum.Domain
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public byte ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
 
         public ICollection<PostDomain> Posts { get; set; }
         public ICollection<MessageDomain> Messages { get; set; }

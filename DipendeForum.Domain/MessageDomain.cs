@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DipendeForum.Domain
 {
-    class MessageDomain
+    public class MessageDomain
     {
         public Guid Id { get; set; }
         public PostDomain Post { get; set; }

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using DipendeForum.Domain;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DipendeForum.Interfaces.Services
 {
-    interface IPostRepository
+    public interface IPostRepository
     {
         public void Add();
-        public User GetById();
-        public ICollection<Post> GetAll();
+        public UserDomain GetById();
+        public ICollection<PostDomain> GetAll();
         public void Delete();
     }
 }
