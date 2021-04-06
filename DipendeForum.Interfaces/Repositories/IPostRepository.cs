@@ -5,7 +5,7 @@
 
 namespace DipendeForum.Interfaces.Repositories
 {
-    public interface IPostRepository : ICrudRepository<PostDomain, Guid>
+    public interface IPostRepository 
     {
         void Add(PostDomain post);
 

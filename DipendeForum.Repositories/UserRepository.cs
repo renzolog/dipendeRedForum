@@ -7,5 +7,6 @@ namespace DipendeForum.Repositories
 {
     public class UserRepository : IUserRepository
     {
+
     }
 }
