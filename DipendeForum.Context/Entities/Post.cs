@@ -13,6 +13,6 @@ namespace DipendeForum.Context.Entities
         public User User { get; set; }
         [Required]
         public string Title { get; set; }
-        public ICollection<Message> Messages { get; set; } //?
+        public List<Message> Messages { get; set; } 
     }
 }

@@ -1,31 +1,31 @@
-﻿using DipendeForum.Interfaces.Services;
+﻿using DipendeForum.Context;
+using DipendeForum.Domain;
+using DipendeForum.Interfaces.Repositories;
+using DipendeForum.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DipendeForum.Repositories
 {
-    class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
-        ICollection<User> IUserRepository.GetAll()
+
+        private readonly ForumDbContext _context;
+
+        public UserRepository(ForumDbContext context)
         {
-            ICollection<User> allUsers = User
+            _context = context;
         }
 
-        User IUserRepository.GetById()
+        public List<UserDomain> GetAll() 
         {
+            var users = _context.User;
+            List<UserDomain> userDomainList = users
+                .Select(user => user.)
+                .ToList();
 
+            return userDomainList;
         }
-
-        void IUserRepository.Add()
-        {
-            
-        }
-
-        void IUserRepository.Delete()
-        {
-            
-        }
-
     }
 }

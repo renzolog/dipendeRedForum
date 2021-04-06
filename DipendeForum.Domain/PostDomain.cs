@@ -8,6 +8,6 @@ namespace DipendeForum.Domain
         public Guid Id { get; set; }
         public UserDomain User { get; set; }
         public string Title { get; set; }
-        public ICollection<MessageDomain> Messages { get; set; }
+        public List<MessageDomain> Messages { get; set; }
     }
 }

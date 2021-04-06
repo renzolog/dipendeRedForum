@@ -14,9 +14,8 @@ namespace DipendeForum.Context.Entities
         public string Email { get; set; }
         [Required] 
         public string Password { get; set; }
-        public byte[] ProfilePicture { get; set; }
-        public ICollection<Post> Posts { get; set; } //?
-        public ICollection<Message> Messages { get; set; } //?
-
+        public string ProfilePicture { get; set; } 
+        public List<Post> Posts { get; set; } 
+        public List<Message> Messages { get; set; } 
     }
 }

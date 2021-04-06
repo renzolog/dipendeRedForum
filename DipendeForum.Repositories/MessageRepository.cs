@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DipendeForum.Repositories
 {
-    class MessageRepository
+    public class MessageRepository
     {
     }
 }
