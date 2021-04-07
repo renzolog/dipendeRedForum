@@ -10,9 +10,9 @@ namespace DipendeForum.Context.Entities
         [Key]
         public Guid Id { get; set; }
         [Required]
-        public User User { get; set; }
-        [Required]
         public string Title { get; set; }
-        public List<Message> Messages { get; set; } 
+        [Required]
+        public User User { get; set; }
+        public virtual List<Message> Messages { get; set; } 
     }
 }

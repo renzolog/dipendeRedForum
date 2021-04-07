@@ -10,9 +10,10 @@ namespace DipendeForum.Context.Entities
     {
         [Key]
         public Guid Id { get; set; }
-        public Post Post { get; set; }
-        public User User { get; set; }
         [MaxLength(8000)]
         public string Content { get; set; }
+        public Post Post { get; set; }
+        public User User { get; set; }
+        
     }
 }

@@ -15,7 +15,8 @@ namespace DipendeForum.Context.Entities
         [Required] 
         public string Password { get; set; }
         public string ProfilePicture { get; set; } 
-        public List<Post> Posts { get; set; } 
-        public List<Message> Messages { get; set; } 
+
+        public virtual List<Post> Posts { get; set; } 
+        public virtual List<Message> Messages { get; set; } 
     }
 }
