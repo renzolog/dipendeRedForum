@@ -11,7 +11,14 @@ namespace DipendeForum.Mapper
     {
         public MappingProfiles()
         {
-           
+            CreateMap<MessageDomain, Message>()
+                .ReverseMap();
+
+            CreateMap<PostDomain, Post>()
+                .ReverseMap();
+
+            CreateMap<UserDomain, User>()
+                .ReverseMap();
         }
 
     }
