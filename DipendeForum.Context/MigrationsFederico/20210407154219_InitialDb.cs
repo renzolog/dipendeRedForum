@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DipendeForum.Context.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,8 +26,8 @@ namespace DipendeForum.Context.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    UserEmail = table.Column<string>(nullable: false),
-                    Title = table.Column<string>(nullable: false)
+                    Title = table.Column<string>(nullable: false),
+                    UserEmail = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -45,9 +45,9 @@ namespace DipendeForum.Context.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Content = table.Column<string>(maxLength: 8000, nullable: true),
                     PostId = table.Column<Guid>(nullable: true),
-                    UserEmail = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(maxLength: 8000, nullable: true)
+                    UserEmail = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DipendeForum.Mapper
 {
-    class MappingProfiles : Profile
+    public class MappingProfiles : Profile
     {
         public MappingProfiles()
         {

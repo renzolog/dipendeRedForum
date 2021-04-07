@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DipendeForum.Context;
+using DipendeForum.Context.Entities;
 using DipendeForum.Domain;
 using DipendeForum.Interfaces.Repositories;
 using System;
@@ -21,9 +22,9 @@ namespace DipendeForum.Repositories
 
         public void Add(MessageDomain message)
         {
-            //var messageEntity = _mapper.Map<Message>(message);
-            //_ctx.Message.Add(messageEntity);
-            //_ctx.SaveChanges();
+            var messageEntity = _mapper.Map<Message>(message);
+            _ctx.Message.Add(messageEntity);
+            _ctx.SaveChanges();
         }
 
         public void Delete(MessageDomain element)
