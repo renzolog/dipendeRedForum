@@ -47,7 +47,31 @@ namespace DipendeForum.Dal.Tests
 
                 Assert.NotNull(result);
             }
-  
+
+        }
+
+        [Fact]
+        public void GetAll_NoInput_ReturnsListOfMessages()
+        {
+            var messages = _repo.GetAll();
+
+            Assert.NotEmpty(messages);
+        }
+
+        [Fact]
+        public void GetById_InputIsValid_ReturnMessage()
+        {
+            var message = _repo.GetById(Guid.Parse("8f87b5be-0f96-43e3-9382-b0e4f6ad1d90"));
+
+            Assert.NotNull(message);
+        }
+
+        [Fact]
+        public void GetById_NoMessageFound_Throws()
+        {
+            var nullMessage = _repo.GetById(Guid.NewGuid());
+
+            Assert.Null(nullMessage);
         }
     }
 }

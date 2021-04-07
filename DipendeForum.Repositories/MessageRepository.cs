@@ -5,6 +5,7 @@ using DipendeForum.Domain;
 using DipendeForum.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace DipendeForum.Repositories
@@ -34,18 +35,16 @@ namespace DipendeForum.Repositories
 
         public ICollection<MessageDomain> GetAll()
         {
-            //var messageEntities = _ctx.Message;
-            //var messageDomainList = _mapper.ProjectTo<MessageDomain>(messageEntities).ToList();
-            //return messageDomainList;
-            throw new NotImplementedException();
+            var messageEntities = _ctx.Message;
+            var messageDomainList = _mapper.ProjectTo<MessageDomain>(messageEntities).ToList();
+            return messageDomainList;
         }
 
         public MessageDomain GetById(Guid id)
         {
-            //var message = _ctx.Message.FirstOrDefault(m => m.Id == id);
-            //var messageEntity = _mapper.Map<Message>(message);
-            //return messageEntity;
-            throw new NotImplementedException();
+            var message = _ctx.Message.FirstOrDefault(m => m.Id == id);
+            var messageEntity = _mapper.Map<MessageDomain>(message);
+            return messageEntity;
         }
 
         public void Update(MessageDomain element)

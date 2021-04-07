@@ -1,7 +1,6 @@
 ﻿using DipendeForum.Domain;
 using System;
 using System.Collections.Generic;
-using DipendeForum.Domain;
 
 namespace DipendeForum.Interfaces.Repositories
 {
