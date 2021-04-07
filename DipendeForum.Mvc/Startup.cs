@@ -48,6 +48,8 @@ namespace DipendeForum.Mvc
 
             app.UseAuthorization();
 
+            app.UseAuthentication();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

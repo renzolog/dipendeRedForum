@@ -24,4 +24,8 @@
     <ProjectReference Include="..\DipendeForum.Services\DipendeForum.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
