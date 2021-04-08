@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace DipendeForum.Repositories
 {
@@ -28,9 +29,11 @@ namespace DipendeForum.Repositories
             _ctx.SaveChanges();
         }
 
-        public void Delete(MessageDomain element)
+        public void Delete(MessageDomain message)
         {
-            throw new NotImplementedException();
+            var messageEntity = _mapper.Map<Message>(message);
+            _ctx.Message.Remove(messageEntity);
+            _ctx.SaveChanges();
         }
 
         public ICollection<MessageDomain> GetAll()
@@ -47,9 +50,21 @@ namespace DipendeForum.Repositories
             return messageEntity;
         }
 
-        public void Update(MessageDomain element)
+        public void Update(MessageDomain message)
         {
-            throw new NotImplementedException();
+            var messageEntity = _mapper.Map<Message>(message);
+            _ctx.Message.Update(messageEntity);
+
+            _ctx.SaveChanges();
+        }
+
+        public void RejectChanges()
+        {
+            foreach (var entry in _ctx.ChangeTracker.Entries())
+            {
+
+                entry.State = EntityState.Detached;
+            }
         }
     }
 }
