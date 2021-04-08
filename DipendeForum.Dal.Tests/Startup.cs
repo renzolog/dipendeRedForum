@@ -22,6 +22,8 @@ namespace DipendeForum.Dal.Tests
             services.AddAutoMapper(typeof(MappingProfiles));
 
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
         }
     }
