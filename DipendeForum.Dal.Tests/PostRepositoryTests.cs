@@ -26,7 +26,6 @@ namespace DipendeForum.Dal.Tests
             _repo = repo;
         }
 
-
         [Fact]
         public void GetById_InputIsValid_Returns_PostDomain()
         {
@@ -80,5 +79,89 @@ namespace DipendeForum.Dal.Tests
             Assert.Throws<Exception>(() => _repo.GetById(Guid.NewGuid()));
         }
         
+        [Fact] 
+        public void Add_InputIsValid()
+        {
+            using (var transaction = new TransactionScope())
+            {
+                User userino = new User()
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "userino@test.com",
+                    Messages = null,
+                    Password = "heheheh",
+                    Posts = null,
+                    ProfilePicture = "lol",
+                    Role = "asd",
+                    Username = "userino89"
+                };
+
+                _ctx.User.Add(userino);
+                _ctx.SaveChanges();
+
+                Post postino = new Post()
+                {
+                    Id = Guid.NewGuid(),
+                    Messages = null,
+                    Title = "None of your business",
+                    User = userino
+                };
+
+                _ctx.Post.Add(postino);
+                _ctx.SaveChanges();
+
+                var result = _ctx.Post
+                    .FirstOrDefault(p => p.Id.Equals(postino.Id));
+
+                Assert.NotNull(result);
+                Assert.IsType<Post>(result);
+            }
+        }
+
+        [Fact]
+        public void Add_InputIsNull_Throws()
+        {
+            using (var transaction = new TransactionScope())
+            {
+
+                Assert.Throws<Exception>(() => _repo.Add(null));
+
+            }
+        }
+
+        [Fact]
+        public void Add_IdAlreadyExists_Throws()
+        {
+            using (var transaction = new TransactionScope())
+            {
+                User userino = new User()
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "userino@test.com",
+                    Messages = null,
+                    Password = "heheheh",
+                    Posts = null,
+                    ProfilePicture = "lol",
+                    Role = "asd",
+                    Username = "userino89"
+                };
+
+                _ctx.User.Add(userino);
+                _ctx.SaveChanges();
+
+                Post postino = new Post()
+                {
+                    Id = Guid.NewGuid(),
+                    Messages = null,
+                    Title = "None of your business",
+                    User = userino
+                };
+
+                _ctx.Post.Add(postino);
+                _ctx.SaveChanges();
+
+                Assert.Throws<Exception>(() => _repo.Add(_mapper.Map<PostDomain>(postino)));
+            }
+        }
     }
 }

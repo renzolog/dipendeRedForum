@@ -23,7 +23,19 @@ namespace DipendeForum.Repositories
 
         public void Add(PostDomain post)
         {
-            throw new NotImplementedException();
+
+            if (post is null)
+            {
+                throw new Exception("Post to add is invalid.");
+            }
+
+            if (_ctx.Post.FirstOrDefault(p => p.Id.Equals(post.Id)) != null)
+            {
+                throw new Exception("Post ID already exists.");
+            } 
+
+            var toAdd = _mapper.Map<Post>(post);
+            _ctx.Post.Add(toAdd);
         }
 
         public void Delete(PostDomain message)
@@ -44,7 +56,7 @@ namespace DipendeForum.Repositories
 
             if (postEntity is null)
             {
-                throw new Exception("Post not found.");
+                throw new Exception("This post was not found.");
             }
 
             PostDomain postDomain = _mapper.Map<PostDomain>(postEntity);
