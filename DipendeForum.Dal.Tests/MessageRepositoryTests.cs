@@ -51,6 +51,37 @@ namespace DipendeForum.Dal.Tests
         }
 
         [Fact]
+        public void Add_InputIsNull()
+        {
+            using (var transaction = new TransactionScope())
+            {
+                Assert.Throws<Exception>(() => _repo.Add(null));
+            }
+            
+        } 
+
+        [Fact]
+        public void Add_IdAlreadyExists()
+        {
+            using (var transaction = new TransactionScope())
+            {
+
+                Message messagino = new Message()
+                {
+                    Id = Guid.NewGuid(),
+                    Content = "None of your business",
+                    Post = null,
+                    User = null
+                };
+
+                _ctx.Message.Add(messagino);
+                _ctx.SaveChanges();
+
+                Assert.Throws<Exception>(() => _repo.Add(_mapper.Map<MessageDomain>(messagino)));
+            }  
+        }
+
+        [Fact]
         public void GetAll_NoInput_ReturnsListOfMessages()
         {
             var messages = _repo.GetAll();

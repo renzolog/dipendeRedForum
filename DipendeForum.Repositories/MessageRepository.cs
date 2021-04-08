@@ -23,6 +23,17 @@ namespace DipendeForum.Repositories
 
         public void Add(MessageDomain message)
         {
+
+            if (message is null)
+            {
+                throw new Exception("Cannot add null message.");
+            }
+
+            if (_ctx.Message.FirstOrDefault(m => m.Id.Equals(message.Id)) != null ) 
+            {
+                throw new Exception("A Message with this Id already exists.");
+            }
+
             var messageEntity = _mapper.Map<Message>(message);
             _ctx.Message.Add(messageEntity);
             _ctx.SaveChanges();

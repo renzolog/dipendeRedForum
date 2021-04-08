@@ -31,7 +31,7 @@ namespace DipendeForum.Repositories
 
             if (_ctx.Post.FirstOrDefault(p => p.Id.Equals(post.Id)) != null)
             {
-                throw new Exception("Post ID already exists.");
+                throw new Exception("A Post with this Id already exists.");
             } 
 
             var toAdd = _mapper.Map<Post>(post);
