@@ -8,13 +8,16 @@ namespace DipendeForum.Context.Entities
 {
     public class User
     {
+        [Key]
+        public Guid Id { get; set; }
         [Index(IsUnique = true), Required] 
         public string Username { get; set; }
-        [Key] 
-        public string Email { get; set; }
+        [Index(IsUnique = true), Required] 
+        public byte[] Email { get; set; }
         [Required] 
-        public string Password { get; set; }
+        public byte[] Password { get; set; }
         public string ProfilePicture { get; set; } 
+        public byte[] Role { get; set; }
 
         public virtual List<Post> Posts { get; set; } 
         public virtual List<Message> Messages { get; set; } 
