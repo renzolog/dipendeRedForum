@@ -20,6 +20,9 @@ namespace DipendeForum.Context
             modelBuilder.Entity<User>();
             modelBuilder.Entity<Post>();
             modelBuilder.Entity<Message>();
+
         }
+
+
     }
 }

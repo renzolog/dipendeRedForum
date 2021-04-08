@@ -9,6 +9,7 @@ using DipendeForum.Context.Entities;
 using DipendeForum.Context;
 using AutoMapper;
 using DipendeForum.Repositories;
+using DipendeForum.Domain;
 
 namespace DipendeForum.Dal.Tests
 {
@@ -25,7 +26,59 @@ namespace DipendeForum.Dal.Tests
             _repo = repo;
         }
 
-        
+
+        [Fact]
+        public void GetById_InputIsValid_Returns_PostDomain()
+        {
+            using (var transaction = new TransactionScope())
+            { 
+
+                User userino = new User()
+                {
+                    Id = Guid.NewGuid(),
+                    Email = "userino@test.com",
+                    Messages = null,
+                    Password = "heheheh",
+                    Posts = null,
+                    ProfilePicture = "lol",
+                    Role = "asd",
+                    Username = "userino89"
+                };
+
+                _ctx.User.Add(userino);
+                _ctx.SaveChanges();
+
+                Post postino = new Post()
+                {
+                    Id = Guid.NewGuid(),
+                    Messages = null,
+                    Title = "None of your business",
+                    User = userino
+                };
+
+                _ctx.Post.Add(postino);
+                _ctx.SaveChanges();
+
+                var result = _repo.GetById(postino.Id);
+
+                Assert.NotNull(result);
+                Assert.IsType<PostDomain>(result);
+
+            }
+            
+        }
+
+        [Fact]
+        public void GetById_InputIsEmpty_Throws()
+        {
+            Assert.Throws<Exception>(() => _repo.GetById(Guid.Empty));
+        }       
+
+        [Fact]
+        public void GetById_PostNotFound_Throws()
+        {
+            Assert.Throws<Exception>(() => _repo.GetById(Guid.NewGuid()));
+        }
         
     }
 }

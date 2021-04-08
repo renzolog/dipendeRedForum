@@ -42,6 +42,11 @@ namespace DipendeForum.Repositories
             Post postEntity = _ctx.Post
                 .FirstOrDefault(p => p.Id == id);
 
+            if (postEntity is null)
+            {
+                throw new Exception("Post not found.");
+            }
+
             PostDomain postDomain = _mapper.Map<PostDomain>(postEntity);
 
             return postDomain;
