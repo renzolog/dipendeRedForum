@@ -15,5 +15,7 @@ namespace DipendeForum.Interfaces.Repositories
         void Update(MessageDomain message);
 
         void Delete(MessageDomain message);
+
+        void RejectChanges();
     }
 }
