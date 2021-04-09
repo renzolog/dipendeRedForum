@@ -134,7 +134,7 @@ namespace DipendeForum.Dal.Tests
 
             _repo.Delete(message);
 
-            Assert.Throws<Exception>(() => _repo.Delete(message));
+            Assert.Throws<Exception>(() => _repo.GetById(Guid.NewGuid()));
         }
 
         [Fact]

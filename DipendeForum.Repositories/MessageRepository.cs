@@ -42,6 +42,11 @@ namespace DipendeForum.Repositories
 
         public void Delete(MessageDomain message)
         {
+            if (message is null)
+            {
+                throw new Exception("This message was not found.");
+            }
+
             var messageEntity = _mapper.Map<Message>(message);
             _ctx.Message.Remove(messageEntity);
             _ctx.SaveChanges();
@@ -57,6 +62,12 @@ namespace DipendeForum.Repositories
         public MessageDomain GetById(Guid id)
         {
             var message = _ctx.Message.FirstOrDefault(m => m.Id == id);
+
+            if (message is null)
+            {
+                throw new Exception("This message was not found.");
+            }
+
             var messageEntity = _mapper.Map<MessageDomain>(message);
             return messageEntity;
         }

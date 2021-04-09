@@ -19,7 +19,7 @@ namespace DipendeForum.Dal.Tests
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ForumDbContext>(
-                opt => opt.UseSqlServer("Data Source=FEDERICO\\SQLEXPRESS; Initial Catalog=ForumDb; User id=sa; Password=root"));
+                opt => opt.UseSqlServer("Server=DESKTOP-0K9C6PL;Database=ForumDb;User id=sa;Password=root"));
 
             services.AddAutoMapper(typeof(MappingProfiles));
 
