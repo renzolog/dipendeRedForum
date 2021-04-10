@@ -5,15 +5,6 @@ namespace DipendeForum.Mvc.Models
 {
     public class LoginUser
     {
-        public LoginUser(string username, string email, string password, string profilePicture, Role role)
-        {
-            Username = username;
-            Email = email;
-            Password = password;
-            ProfilePicture = profilePicture;
-            Role = role;
-        }
-
         [Required]
         public string Username { get; set; }
 

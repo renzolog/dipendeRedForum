@@ -9,13 +9,16 @@ namespace DipendeForum.Context.Entities
 {
     public class User
     {
+        [Key]
+        public Guid Id { get; set; }
+
         [Index(IsUnique = true), Required] 
         public string Username { get; set; }
 
-        [Key] 
+        [Index(IsUnique = true), Required]
         public string Email { get; set; }
 
-        [Required] 
+        [Required]
         public string Password { get; set; }
 
         public string ProfilePicture { get; set; }
