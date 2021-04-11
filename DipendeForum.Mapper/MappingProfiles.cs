@@ -3,7 +3,9 @@ using DipendeForum.Context.Entities;
 using DipendeForum.Domain;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
+using Aes = System.Security.Cryptography.Aes;
 
 namespace DipendeForum.Mapper
 {
@@ -20,6 +22,5 @@ namespace DipendeForum.Mapper
             CreateMap<UserDomain, User>()
                 .ReverseMap();
         }
-
     }
 }

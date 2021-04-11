@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using DipendeForum.Context;
+using DipendeForum.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace DipendeForum.Mvc
@@ -24,6 +25,8 @@ namespace DipendeForum.Mvc
                 opt => opt.UseSqlServer(
                     Configuration.GetValue<string>("ConnectionStrings:ForumDbConnectionString"),
                     act => act.MigrationsAssembly("DipendeForum.Migrations")));
+
+            services.AddAutoMapper(typeof(MappingProfiles));
 
             services.AddControllersWithViews();
         }
@@ -47,6 +50,8 @@ namespace DipendeForum.Mvc
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

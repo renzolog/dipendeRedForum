@@ -11,7 +11,7 @@ namespace DipendeForum.Context.Entities
         [Key]
         public Guid Id { get; set; }
 
-        [Index(IsUnique = true), Required]
+        [Index(IsUnique = true), Required] 
         public string Username { get; set; }
 
         [Index(IsUnique = true), Required]
@@ -24,8 +24,8 @@ namespace DipendeForum.Context.Entities
 
         public string Role { get; set; }
 
-        public virtual List<Post> Posts { get; set; }
+        public virtual List<Post> Posts { get; set; } 
 
-        public virtual List<Message> Messages { get; set; }
+        public virtual List<Message> Messages { get; set; } 
     }
 }
