@@ -10,162 +10,314 @@ using Xunit;
 using System.Linq;
 using DipendeForum.Interfaces.Repositories;
 using DipendeForum.Context.Entities;
+using DipendeForum.Interfaces.CustomExceptions;
+using DipendeForum.Mapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 
 namespace DipendeForum.Dal.Tests
 {
     public class MessageRepositoryTests
     {
 
-        private readonly ForumDbContext _ctx;
         private readonly IMapper _mapper;
-        private readonly IMessageRepository _repo;
 
-        public MessageRepositoryTests(ForumDbContext ctx, IMapper mapper, IMessageRepository repo)
+        public MessageRepositoryTests()
         {
-            _ctx = ctx;
-            _mapper = mapper;
-            _repo = repo;
+            var config = new MapperConfiguration(opt => opt.AddProfile<MappingProfiles>());
+            _mapper = new AutoMapper.Mapper(config);
         }
 
         [Fact]
-        public void Add_InputIsValid()
+        public void Add_InputMessageDomainObject_NoReturn()
         {
-            using var transaction = new TransactionScope();
-            
-            MessageDomain messageDomain = new MessageDomain()
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                    .UseInMemoryDatabase("Add_InputMessageDomainObject_NoReturn")
+                    .Options;
+
+            using (var context = new ForumDbContext(options))
             {
-                Id = Guid.NewGuid(),
-                Content = "prova",
-                PublicationTimestamp = DateTime.Now,
-                Post = null,
-                User = null
-            };
+                var repository = new MessageRepository(context, _mapper);
 
-            _repo.Add(messageDomain);
-
-            var result = _ctx.Message.FirstOrDefault(r => r.Id == messageDomain.Id);
-
-            Assert.NotNull(result);
-        }
-
-        [Fact]
-        public void Add_InputIsNull()
-        {
-            using (var transaction = new TransactionScope())
-            {
-                Assert.Throws<Exception>(() => _repo.Add(null));
-            }
-            
-        } 
-
-        [Fact]
-        public void Add_IdAlreadyExists()
-        {
-            using (var transaction = new TransactionScope())
-            {
-
-                Message messagino = new Message()
+                using (var transaction = new TransactionScope())
                 {
-                    Id = Guid.NewGuid(),
-                    Content = "None of your business",
-                    Post = null,
-                    User = null
-                };
+                    MessageDomain messageDomain = new MessageDomain
+                    {
+                        Id = Guid.NewGuid(),
+                        Content = "prova",
+                        PublicationTimestamp = DateTime.Now,
+                        Post = null,
+                        User = null
+                    };
 
-                _ctx.Message.Add(messagino);
-                _ctx.SaveChanges();
+                    repository.Add(messageDomain);
 
-                Assert.Throws<Exception>(() => _repo.Add(_mapper.Map<MessageDomain>(messagino)));
-            }  
+                    var result = context.Message.FirstOrDefault(m => m.Id == messageDomain.Id);
+
+                    Assert.NotNull(result);
+                    Assert.IsType<Message>(result);
+                    Assert.Equal(messageDomain.Id, result.Id);
+                    Assert.Equal(messageDomain.Content, result.Content);
+
+                    transaction.Complete();
+                }
+
+                context.Database.EnsureDeleted();
+            }
         }
+
+        //[Fact]
+        //public void Add_MessageDomainObjectIsNull_ThrowsInvalidInputException()
+        //{
+        //    var options = new DbContextOptionsBuilder<ForumDbContext>()
+        //        .UseInMemoryDatabase("Add_MessageDomainObjectIsNull_ThrowsInvalidInputException")
+        //        .Options;
+
+        //    using (var context = new ForumDbContext(options))
+        //    {
+        //        var repository = new MessageRepository(context, _mapper);
+        //        var result = repository.GetById(Guid.NewGuid());
+
+        //        Assert.Throws<InvalidInputException>(() => repository.Add(result));
+
+        //        context.Database.EnsureDeleted();
+        //    }
+        //} 
+
+        //[Fact]
+        //public void Add_IdAlreadyExists_ThrowsAlreadyExistsException()
+        //{
+        //    var options = new DbContextOptionsBuilder<ForumDbContext>()
+        //        .UseInMemoryDatabase("Add_InputMessageDomainObject_NoReturn")
+        //        .Options;
+
+        //    using (var context = new ForumDbContext(options))
+        //    {
+        //        var repository = new MessageRepository(context, _mapper);
+
+        //        using (var transaction = new TransactionScope())
+        //        {
+        //            var guid = Guid.NewGuid();
+
+        //            MessageDomain messageDomain = new MessageDomain
+        //            {
+        //                Id = guid,
+        //                Content = "prova",
+        //                PublicationTimestamp = DateTime.Now,
+        //                Post = null,
+        //                User = null
+        //            };
+
+        //            repository.Add(messageDomain);
+
+        //            MessageDomain messageDomain2 = new MessageDomain
+        //            {
+        //                Id = guid,
+        //                Content = "prova",
+        //                PublicationTimestamp = DateTime.Now,
+        //                Post = null,
+        //                User = null
+        //            };
+
+        //            Assert.Throws<AlreadyExistsException>(() => repository.Add(messageDomain2));
+
+        //            transaction.Complete();
+        //        }
+
+        //        context.Database.EnsureDeleted();
+        //    }
+        //}
 
         [Fact]
         public void GetAll_NoInput_ReturnsListOfMessages()
         {
-            var messages = _repo.GetAll();
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseSqlServer("Server=DESKTOP-0K9C6PL;Database=ForumDb;User id=sa;Password=root")
+                .Options;
 
-            Assert.NotEmpty(messages);
-        }
-
-        [Fact]
-        public void GetById_InputIsValid_ReturnMessage()
-        {
-            var message = _repo.GetById(Guid.Parse("e6e7a1b7-4153-4dd9-af7e-32822d620950"));
-
-            Assert.NotNull(message);
-        }
-
-        [Fact]
-        public void GetById_NoMessageFound_Throws()
-        {
-            var nullMessage = _repo.GetById(Guid.NewGuid());
-
-            Assert.Null(nullMessage);
-        }
-
-        [Fact]
-        public void Delete_InputIsValid()
-        {
-            using var transaction = new TransactionScope();
-
-            MessageDomain message = new MessageDomain()
+            using (var context = new ForumDbContext(options))
             {
-                Id = Guid.NewGuid(),
-                Content = "prova",
-                PublicationTimestamp = DateTime.Now,
-                Post = null,
-                User = null
-            };
-            _repo.Add(message);
-            _repo.RejectChanges();
-            var messageToDelete = _repo.GetAll().FirstOrDefault(m => m.Id == message.Id);
-            _repo.Delete(messageToDelete);
-            
-            Assert.Throws<Exception>(() => _repo.GetById(message.Id));
+                var repository = new MessageRepository(context, _mapper);
+
+                using (var transaction = new TransactionScope())
+                {
+                    var message = new Message
+                    {
+                        Id = Guid.NewGuid(),
+                        Content = "prova",
+                        Post = null,
+                        User = null
+                    };
+
+                    var message2 = new Message
+                    {
+                        Id = Guid.NewGuid(),
+                        Content = "prova2",
+                        Post = null,
+                        User = null
+                    };
+
+                    context.Message.Add(message);
+                    context.Message.Add(message2);
+                    var entries = context.SaveChanges();
+
+                    Assert.Equal(2, entries);
+
+                    var result = repository.GetAll().ToList();
+
+                    Assert.Equal(2, result.Count());
+                    Assert.IsType<List<MessageDomain>>(result);
+                    Assert.NotNull(result);
+
+                    transaction.Complete();
+                }
+            }
         }
 
         [Fact]
-        public void Delete_NoUserFound_Throws()
+        public void GetById_InputIsValid_ReturnMessageDomain()
         {
-            using var transaction = new TransactionScope();
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase("GetById_InputIsValid_ReturnMessageDomain")
+                .Options;
 
-            var message = _repo.GetById(Guid.NewGuid());
+            using (var context = new ForumDbContext(options))
+            {
+                var repository = new MessageRepository(context, _mapper);
 
-            _repo.Delete(message);
+                using (var transaction = new TransactionScope())
+                {
+                    var message = new Message
+                    {
+                        Id = Guid.NewGuid(),
+                        Content = "prova",
+                        Post = null,
+                        User = null
+                    };
 
-            Assert.Throws<Exception>(() => _repo.GetById(Guid.NewGuid()));
+                    context.Message.Add(message);
+                    var entries = context.SaveChanges();
+
+                    Assert.Equal(1, entries);
+
+                    var result = repository.GetById(message.Id);
+
+                    Assert.NotNull(result);
+                    Assert.IsType<MessageDomain>(result);
+                    Assert.Equal(message.Id, result.Id);
+
+                    transaction.Complete();
+                }
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [Fact]
+        public void GetById_InputGuidIsNotValid_ReturnsNull()
+        {
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase("GetById_InputGuidIdIsNotValid_ReturnsNull")
+                .Options;
+
+            using (var context = new ForumDbContext(options))
+            {
+                var repository = new MessageRepository(context, _mapper);
+
+                var result = repository.GetById(Guid.NewGuid());
+
+                Assert.Null(result);
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [Fact]
+        public void Delete_InputIsValid_ReturnsNull()
+        {
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase("Delete_InputIsValid_ReturnsNull")
+                .Options;
+
+            using (var context = new ForumDbContext(options))
+            {
+                var repository = new MessageRepository(context, _mapper);
+
+                using (var transaction = new TransactionScope())
+                {
+                    var message = new Message
+                    {
+                        Id = Guid.NewGuid(),
+                        Content = "prova",
+                        Post = null,
+                        User = null
+                    };
+
+                    context.Message.Add(message);
+                    var entries = context.SaveChanges();
+
+                    Assert.Equal(1, entries);
+
+                    var messageToDelete = repository.GetById(message.Id);
+                    repository.RejectChanges();
+
+                    Assert.NotNull(messageToDelete);
+
+                    repository.Delete(messageToDelete.Id);
+
+                    var toTest = context.Message.FirstOrDefault(m => m.Id == messageToDelete.Id);
+                    Assert.Null(toTest);
+
+                    transaction.Complete();
+                }
+
+                context.Database.EnsureDeleted();
+            }
         }
 
         [Fact]
         public void Update_InputIsValid()
         {
-            using var transaction = new TransactionScope();
+            var options = new DbContextOptionsBuilder<ForumDbContext>()
+                .UseInMemoryDatabase("GetById_InputGuidIdIsNotValid_ReturnsNull")
+                .Options;
 
-            var guid = Guid.NewGuid();
-
-            MessageDomain message = new MessageDomain()
+            using (var context = new ForumDbContext(options))
             {
-                Id = guid,
-                Content = "prova",
-                PublicationTimestamp = DateTime.Now,
-                Post = null,
-                User = null
-            };
+                var repository = new MessageRepository(context, _mapper);
 
-            _repo.Add(message);
+                using (var transaction = new TransactionScope())
+                {
+                    var guid = Guid.NewGuid();
 
-            _repo.RejectChanges();
+                    MessageDomain message = new MessageDomain()
+                    {
+                        Id = guid,
+                        Content = "prova",
+                        PublicationTimestamp = DateTime.Now,
+                        Post = null,
+                        User = null
+                    };
 
-            message.Content = "provaaaa";
+                    repository.Add(message);
 
-            _repo.Update(message);
+                    repository.RejectChanges();
 
-            _repo.RejectChanges();
+                    message.Content = "provaaaa";
 
-            var message1 = _repo.GetById(guid);
+                    repository.Update(message);
 
-            Assert.Equal(message.Content, message1.Content);
+                    repository.RejectChanges();
+
+                    var message1 = repository.GetById(guid);
+
+                    Assert.Equal(message.Content, message1.Content);
+
+                }
+
+                context.Database.EnsureDeleted();
+
+            }
         }
     }
 }

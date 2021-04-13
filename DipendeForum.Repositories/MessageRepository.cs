@@ -24,56 +24,36 @@ namespace DipendeForum.Repositories
 
         public void Add(MessageDomain message)
         {
-
-            if (message is null)
-            {
-                throw new Exception("Cannot add null message.");
-            }
-
-            if (_ctx.Message.FirstOrDefault(m => m.Id.Equals(message.Id)) != null ) 
-            {
-                throw new Exception("A Message with this Id already exists.");
-            }
-
             var messageEntity = _mapper.Map<Message>(message);
             _ctx.Message.Add(messageEntity);
             _ctx.SaveChanges();
         }
 
-        public void Delete(MessageDomain message)
+        public void Delete(Guid id)
         {
-            if (message is null)
-            {
-                throw new Exception("This message was not found.");
-            }
-
+            var message = _ctx.Message.FirstOrDefault(m => m.Id == id);
             var messageEntity = _mapper.Map<Message>(message);
             _ctx.Message.Remove(messageEntity);
             _ctx.SaveChanges();
         }
 
-        public ICollection<MessageDomain> GetAll()
+        public IEnumerable<MessageDomain> GetAll()
         {
             var messageEntities = _ctx.Message;
-            var messageDomainList = _mapper.ProjectTo<MessageDomain>(messageEntities).ToList();
-            return messageDomainList;
+            return _mapper.ProjectTo<MessageDomain>(messageEntities).ToList();
+            
         }
 
         public MessageDomain GetById(Guid id)
         {
             var message = _ctx.Message.FirstOrDefault(m => m.Id == id);
-
-            if (message is null)
-            {
-                throw new Exception("This message was not found.");
-            }
-
             var messageEntity = _mapper.Map<MessageDomain>(message);
             return messageEntity;
         }
 
-        public void Update(MessageDomain message)
+        public void Update(Guid id)
         {
+            var message = _ctx.Message.FirstOrDefault(m => m.Id == id);
             var messageEntity = _mapper.Map<Message>(message);
             _ctx.Message.Update(messageEntity);
 
@@ -84,7 +64,6 @@ namespace DipendeForum.Repositories
         {
             foreach (var entry in _ctx.ChangeTracker.Entries())
             {
-
                 entry.State = EntityState.Detached;
             }
         }
