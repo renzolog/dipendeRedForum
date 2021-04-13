@@ -305,7 +305,7 @@ namespace DipendeForum.Dal.Tests
 
                     message.Content = "provaaaa";
 
-                    repository.Update(message);
+                    repository.Update(message.Id);
 
                     repository.RejectChanges();
 

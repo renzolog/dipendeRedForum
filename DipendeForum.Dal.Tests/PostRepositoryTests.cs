@@ -349,5 +349,16 @@ namespace DipendeForum.Dal.Tests
 
             }
         }
+
+        [Fact]
+        public void GetAll_NoInput_ReturnsEmptyIEnumerable()
+        {
+            using (var transaction = new TransactionScope())
+            {
+                var toTest =_repo.GetAll();
+
+                Assert.Empty(toTest);
+            }
+        }
     }
 }
