@@ -10,7 +10,7 @@ namespace DipendeForum.Interfaces.Repositories
 
         MessageDomain GetById(Guid id);
 
-        ICollection<MessageDomain> GetAll();
+        IEnumerable<MessageDomain> GetAll();
 
         void Update(MessageDomain message);
 
