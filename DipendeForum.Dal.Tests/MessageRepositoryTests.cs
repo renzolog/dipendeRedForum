@@ -132,7 +132,7 @@ namespace DipendeForum.Dal.Tests
         public void GetAll_NoInput_ReturnsListOfMessages()
         {
             var options = new DbContextOptionsBuilder<ForumDbContext>()
-                .UseInMemoryDatabase("GetAll_NoInput_ReturnsListOfMessages")
+                .UseSqlServer("Server=DESKTOP-0K9C6PL;Database=ForumDb;User id=sa;Password=root")
                 .Options;
 
             using (var context = new ForumDbContext(options))
@@ -171,8 +171,6 @@ namespace DipendeForum.Dal.Tests
 
                     transaction.Complete();
                 }
-
-                context.Database.EnsureDeleted();
             }
         }
 
@@ -265,7 +263,7 @@ namespace DipendeForum.Dal.Tests
 
                     Assert.NotNull(messageToDelete);
 
-                    repository.Delete(messageToDelete);
+                    repository.Delete(messageToDelete.Id);
 
                     var toTest = context.Message.FirstOrDefault(m => m.Id == messageToDelete.Id);
                     Assert.Null(toTest);
@@ -314,7 +312,11 @@ namespace DipendeForum.Dal.Tests
                     var message1 = repository.GetById(guid);
 
                     Assert.Equal(message.Content, message1.Content);
+
                 }
+
+                context.Database.EnsureDeleted();
+
             }
         }
     }

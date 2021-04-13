@@ -29,8 +29,9 @@ namespace DipendeForum.Repositories
             _ctx.SaveChanges();
         }
 
-        public void Delete(MessageDomain message)
+        public void Delete(Guid id)
         {
+            var message = _ctx.Message.FirstOrDefault(m => m.Id == id);
             var messageEntity = _mapper.Map<Message>(message);
             _ctx.Message.Remove(messageEntity);
             _ctx.SaveChanges();
@@ -50,8 +51,9 @@ namespace DipendeForum.Repositories
             return messageEntity;
         }
 
-        public void Update(MessageDomain message)
+        public void Update(Guid id)
         {
+            var message = _ctx.Message.FirstOrDefault(m => m.Id == id);
             var messageEntity = _mapper.Map<Message>(message);
             _ctx.Message.Update(messageEntity);
 

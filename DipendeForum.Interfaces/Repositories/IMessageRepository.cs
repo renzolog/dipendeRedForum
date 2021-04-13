@@ -12,9 +12,9 @@ namespace DipendeForum.Interfaces.Repositories
 
         IEnumerable<MessageDomain> GetAll();
 
-        void Update(MessageDomain message);
+        void Update(Guid id);
 
-        void Delete(MessageDomain message);
+        void Delete(Guid id);
 
         void RejectChanges();
     }
