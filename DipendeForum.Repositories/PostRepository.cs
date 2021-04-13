@@ -23,29 +23,16 @@ namespace DipendeForum.Repositories
 
         public void Add(PostDomain post)
         {
-
-            if (post is null)
-            {
-                throw new Exception("Post to add is invalid.");
-            }
-
-            if (_ctx.Post.FirstOrDefault(p => p.Id.Equals(post.Id)) != null)
-            {
-                throw new Exception("A Post with this Id already exists.");
-            } 
-
             var toAdd = _mapper.Map<Post>(post);
             _ctx.Post.Add(toAdd);
+            _ctx.SaveChanges();
         }
 
-        public void Delete(PostDomain message)
+        public void Delete(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public ICollection<PostDomain> GetAll()
-        {
-            throw new NotImplementedException();
+            var toDelete = _ctx.Post.FirstOrDefault(p => p.Id == id);
+            _ctx.Remove(toDelete);
+            _ctx.SaveChanges();
         }
 
         public PostDomain GetById(Guid id)
@@ -54,17 +41,18 @@ namespace DipendeForum.Repositories
             Post postEntity = _ctx.Post
                 .FirstOrDefault(p => p.Id == id);
 
-            if (postEntity is null)
-            {
-                throw new Exception("This post was not found.");
-            }
-
             PostDomain postDomain = _mapper.Map<PostDomain>(postEntity);
 
             return postDomain;
         }
+     
+        public IEnumerable<PostDomain> GetAll()
+        {
+            var postDomains = _mapper.ProjectTo<PostDomain>(_ctx.Post).ToList();
+            return postDomains;
+        }
 
-        public void Update(PostDomain message)
+        public void Update(PostDomain post)
         {
             throw new NotImplementedException();
         }

@@ -11,10 +11,10 @@ namespace DipendeForum.Interfaces.Repositories
 
         PostDomain GetById(Guid id);
 
-        ICollection<PostDomain> GetAll();
+        IEnumerable<PostDomain> GetAll();
 
         void Update(PostDomain message);
 
-        void Delete(PostDomain message);
+        void Delete(Guid id);
     }
 }

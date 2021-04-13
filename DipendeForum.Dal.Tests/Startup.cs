@@ -1,4 +1,5 @@
-﻿using DipendeForum.Context;
+﻿using AutoMapper.Configuration;
+using DipendeForum.Context;
 using DipendeForum.Interfaces.Repositories;
 using DipendeForum.Mapper;
 using DipendeForum.Repositories;
@@ -7,26 +8,22 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.Configuration;
-using System.Configuration;
-
 
 namespace DipendeForum.Dal.Tests
 {
-    class Startup
+    public class Startup
     {
-
+        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ForumDbContext>(
-                opt => opt.UseSqlServer("Server=DESKTOP-0K9C6PL;Database=ForumDb;User id=sa;Password=root"));
-
             services.AddAutoMapper(typeof(MappingProfiles));
 
-            services.AddScoped<IMessageRepository, MessageRepository>();
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddDbContext<ForumDbContext>(opt =>
+                opt.UseSqlServer("Data Source = FEDERICO\\SQLEXPRESS; Initial Catalog = ForumDb; User id = sa; Password = root"));
 
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
         }
     }
 }
